@@ -3,4 +3,5 @@ Create simple Qlik Sense KPIs with this extension. It supports percentage (%) KP
 
 I've added a number of themes to change the colors used and a property for setting the animation
 
-
+# Examples
+![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI.png)

@@ -1,7 +1,7 @@
 {
 	"name": "CircularKPI",
 	"description": "Circular KPI Visualization",
-	"icon": "table",
+	"icon": "kpi",
 	"type": "visualization",
 	"version": "1.0.0",
 	"author": "",

@@ -93,13 +93,8 @@ define( ["jquery", "text!./scripts/style.css", "./scripts/d3.min", "./scripts/ra
 var viz = function(data, label, height, width, id, colors, animationTime) {
 
     var myDiv=d3.select(document.getElementById(id));
-	//var colors = colors;
-	//console.log(colors);
-    start();
 
-    //function onClick2() {
-	//console.log("clicked viz");
-    //}
+    start();
 
     function labelFunction(val,min,max) {
     }
@@ -115,7 +110,6 @@ var viz = function(data, label, height, width, id, colors, animationTime) {
 
         var rp = radialProgress(document.getElementById(id), width, height, colors, animationTime)
                 
-                //.onClick(onClick2)
                 .diameter(width)
                 .value(data*100)
                 .render();

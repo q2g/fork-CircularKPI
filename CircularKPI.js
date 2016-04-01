@@ -68,7 +68,7 @@ define( ["jquery", "text!./scripts/style.css", "./scripts/d3.min", "./scripts/ra
 		
 
 		
-		var colors = [layout.theme[0], layout.theme[1]];
+		var colors = [layout.theme[0], layout.theme[1], layout.theme[2]];
 		var animationTime = layout.animationtime;
 		
 		var width = $element.width();

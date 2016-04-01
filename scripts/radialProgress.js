@@ -45,7 +45,7 @@ function radialProgress(parent, width, height, colors, animationTime) {
         _minValue = 0,
         _maxValue = 100;
 
-    var  _currentArc= 0, _currentArc2= 0, _currentValue=0;
+    var  _currentArc= 0, _currentArc2= 0, _currentArc3= 0, _currentValue=0;
 
     var _arc = d3.svg.arc()
         .startAngle(0 * (Math.PI/180)); //just radians
@@ -54,6 +54,9 @@ function radialProgress(parent, width, height, colors, animationTime) {
         .startAngle(0 * (Math.PI/180))
         .endAngle(0); //just radians
 
+    var _arc3 = d3.svg.arc()
+        .startAngle(0 * (Math.PI/180))
+        .endAngle(0); //just radians		
 
     _selection=d3.select(parent);
 
@@ -115,6 +118,14 @@ function radialProgress(parent, width, height, colors, animationTime) {
 				.attr("fill", colors[1])
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
                 .attr("d", _arc2);
+				
+			//Another path in case we exceed 200%
+            var path3 = svg.select(".arcs").selectAll(".arc3").data(data);
+            path3.enter().append("path")
+                .attr("class","arc3")
+				.attr("fill", colors[2])
+                .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
+                .attr("d", _arc3);			
 
 
             enter.append("g").attr("class", "labels");
@@ -145,11 +156,20 @@ function radialProgress(parent, width, height, colors, animationTime) {
                 path.transition().duration(_duration)
                     .attrTween("d", arcTween);
 
-                if (ratio > 1) {
+                if (ratio > 1 && ratio<=2) {
                     path2.datum(Math.min(360*(ratio-1),360) * Math.PI/180);
                     path2.transition().delay(_duration).duration(_duration)
                         .attrTween("d", arcTween2);
                 }
+				if (ratio > 2) {
+					//console.log("over 200%");
+					path2.datum(Math.min(360*(ratio-1),360) * Math.PI/180);
+                    path2.transition().delay(_duration).duration(_duration)
+                        .attrTween("d", arcTween2);
+					path3.datum(Math.min(360*(ratio-2),360) * Math.PI/180);
+					path3.transition().delay(_duration).duration(_duration)
+						.attrTween("d", arcTween3);
+				}
 
                 label.datum(Math.round(ratio*100));
                 label.transition().duration(_duration)
@@ -189,9 +209,18 @@ function radialProgress(parent, width, height, colors, animationTime) {
         var i = d3.interpolate(_currentArc2, a);
 
         return function(t) {
+			_currentArc2=i(t);
             return _arc2.endAngle(i(t))();
         };
     }
+	
+    function arcTween3(a) {
+        var i = d3.interpolate(_currentArc3, a);
+
+        return function(t) {
+            return _arc3.endAngle(i(t))();
+        };
+    }	
 
 
     function measure() {
@@ -202,6 +231,8 @@ function radialProgress(parent, width, height, colors, animationTime) {
         _arc.innerRadius(_width/2 * .85);
         _arc2.outerRadius(_width/2 * .85);
         _arc2.innerRadius(_width/2 * .85 - (_width/2 * .15));
+        _arc3.outerRadius(_width/2 * .7);
+        _arc3.innerRadius(_width/2 * .7 - (_width/2 * .15));		
     }
 
 

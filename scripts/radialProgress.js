@@ -56,7 +56,7 @@ function radialProgress(parent, width, height, colors, animationTime) {
 
     var _arc3 = d3.svg.arc()
         .startAngle(0 * (Math.PI/180))
-        .endAngle(0); //just radians		
+        .endAngle(0); //just radians
 
     _selection=d3.select(parent);
 
@@ -92,14 +92,19 @@ function radialProgress(parent, width, height, colors, animationTime) {
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
                 .attr("d", _arc);
 
-            background.append("text")
-                .attr("class", "label")
-                .attr("transform", "translate(" + _width/2 + "," + (_width + _fontSize) + ")")
-                .text(_label);
+                
             var g = svg.select("g")
-                .attr("transform", "translate(" + _margin.left + "," + _margin.top + ")");
+                .attr("transform", "translate(" + _margin.left + "," + _margin.top + ")");	
 
-			
+            svg.append("text")
+                .attr("class", "dimensionlabel")
+                .attr("y",_width/2  + (_fontSize / 1.5))
+                .attr("x",_width/2 )
+                .text(__height > 100 ? _label : '')
+                .style("font-size", function() {
+                    return _fontSize / 4 < 10 ? 10 + "px" : _fontSize / 4 +"px"
+                })
+                .style('text-anchor', 'middle');
 
             _arc.endAngle(_currentArc);
             enter.append("g").attr("class", "arcs");
@@ -118,15 +123,14 @@ function radialProgress(parent, width, height, colors, animationTime) {
 				.attr("fill", colors[1])
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
                 .attr("d", _arc2);
-				
+
 			//Another path in case we exceed 200%
             var path3 = svg.select(".arcs").selectAll(".arc3").data(data);
             path3.enter().append("path")
                 .attr("class","arc3")
 				.attr("fill", colors[2])
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
-                .attr("d", _arc3);			
-
+                .attr("d", _arc3);	
 
             enter.append("g").attr("class", "labels");
             var label = svg.select(".labels").selectAll(".label").data(data);
@@ -156,7 +160,7 @@ function radialProgress(parent, width, height, colors, animationTime) {
                 path.transition().duration(_duration)
                     .attrTween("d", arcTween);
 
-                if (ratio > 1 && ratio<=2) {
+                if (ratio > 1) {
                     path2.datum(Math.min(360*(ratio-1),360) * Math.PI/180);
                     path2.transition().delay(_duration).duration(_duration)
                         .attrTween("d", arcTween2);
@@ -170,7 +174,7 @@ function radialProgress(parent, width, height, colors, animationTime) {
 					path3.transition().delay(_duration).duration(_duration)
 						.attrTween("d", arcTween3);
 				}
-
+                
                 label.datum(Math.round(ratio*100));
                 label.transition().duration(_duration)
                     .tween("text",labelTween);
@@ -209,18 +213,17 @@ function radialProgress(parent, width, height, colors, animationTime) {
         var i = d3.interpolate(_currentArc2, a);
 
         return function(t) {
-			_currentArc2=i(t);
             return _arc2.endAngle(i(t))();
         };
     }
-	
+
     function arcTween3(a) {
         var i = d3.interpolate(_currentArc3, a);
 
         return function(t) {
             return _arc3.endAngle(i(t))();
         };
-    }	
+    }    
 
 
     function measure() {

@@ -7,4 +7,4 @@ http://www.brightpointinc.com/download/radial-progress-source-code/
 I've added a number of themes to change the colors used and a property for setting the animation
 
 # Examples
-![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI.png)
+![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI2.png)

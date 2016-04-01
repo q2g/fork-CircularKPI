@@ -1,5 +1,5 @@
 # CircularKPI
-Create simple Qlik Sense KPIs with this extension. It supports percentage (%) KPIs up to 200%. Great for showing target achievements with optional animation of values.
+Create simple Qlik Sense KPIs with this extension. It supports percentage (%) KPIs up to 300%. Great for showing target achievements with optional animation of values.
 
 The extension is using the open source code from BrightPoint Consulting (slightly modified) from here:
 http://www.brightpointinc.com/download/radial-progress-source-code/

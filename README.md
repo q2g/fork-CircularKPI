@@ -10,7 +10,5 @@ EDIT 20160402: CircularKPI now supports dropping a dimension on the object to cr
 
 EDIT #2 20160402: Added opacity settings while making selections in dimension driven KPI array to highlight selected vs non-selected values.
 
-# Examples
-![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPIDemo.png)
-
+# Example
 ![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI_animation.gif)

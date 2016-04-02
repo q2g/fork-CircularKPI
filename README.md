@@ -6,5 +6,7 @@ http://www.brightpointinc.com/download/radial-progress-source-code/
 
 I've added a number of themes to change the colors used and a property for setting the animation
 
+EDIT 20160402: CircularKPI now supports dropping a dimension on the object to create an array of KPI items. Thanks to Alexander Karlsson for the pull request.
+
 # Examples
 ![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI2.png)

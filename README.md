@@ -13,4 +13,4 @@ EDIT #2 20160402: Added opacity settings while making selections in dimension dr
 # Examples
 ![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPIDemo.png)
 
-![alt tag](http://recordit.co/Al6Act3FQi)
+![alt tag](https://s3.amazonaws.com/img0.recordit.co/Al6Act3FQi.mp4?AWSAccessKeyId=AKIAINSRFOQXTN4DT46A&Expires=1459622035&Signature=UHeW%2BvRQ7UhaVze3hsWokk%2FFRnI%3D)

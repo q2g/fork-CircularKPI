@@ -102,18 +102,23 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 .attr('id', function(d, i) {
                     return id + '_circular-kpi-tile-' + i;
                 })
+				.attr('selected', 'no')
                 .style('width', Math.ceil(width / columns, 10) - 5 + 'px')
                 .style('height', Math.ceil(height / rows, 10) - 5 + 'px');
             
             data.forEach(function(d, i) {
                 var value = HAS_DIMENSION ? d[1].qNum : d[0].qNum;
                 var label = HAS_DIMENSION ? d[0].qText : '';
+				
+				//console.log(label);
 
                 var element = document.getElementById(id + '_circular-kpi-tile-' + i);
 				
                 var width = element.offsetWidth - 5, height = element.offsetHeight - 5;
 				
                 var select = function() {
+					$('#' + id + '_circular-kpi-tile-' + i).attr('selected', '1');
+					toggleOpacity();
                     return HAS_DIMENSION ? this.selectValues(0, [d[0].qElemNumber], true) : false;
                 }.bind(this);
                 
@@ -133,16 +138,13 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
             }.bind(this));
             
             function toggleOpacity() {
-                // TODO: ADD OPACITY FOR SELECTING
+				$("#" +id).find("[selected=no]")
+					.css({ opacity: 0.5 });
+				$("#" +id).find("[selected=selected]")
+					.css({ opacity: 1 });	
             };
 
 
         }
     };
 });
-
-//function GetElementInsideContainer(containerID, childID) {
-//    var elm = document.getElementById(childID);
-//    var parent = elm ? elm.parentNode : {};
- //   return (parent.id && parent.id === containerID) ? elm : {};
-//}

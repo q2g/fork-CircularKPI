@@ -50,7 +50,13 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                                     label: "Animation time (ms)",
                                     ref: "animationtime",
                                     defaultValue: 1000
-                                }
+                                },
+								singlekpilabel: {
+									type: "string",
+									label: "Single KPI Label",
+									ref: "singlekpilabel",
+									defaultValue: ""
+								}
                             }
                         }
                     }
@@ -108,9 +114,8 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
             
             data.forEach(function(d, i) {
                 var value = HAS_DIMENSION ? d[1].qNum : d[0].qNum;
-                var label = HAS_DIMENSION ? d[0].qText : '';
-				
-				//console.log(label);
+                if(layout.singlekpilabel.length>0) {var label = HAS_DIMENSION ? d[0].qText : layout.singlekpilabel};
+				if(layout.singlekpilabel.length==0) {var label = HAS_DIMENSION ? d[0].qText : label};
 
                 var element = document.getElementById(id + '_circular-kpi-tile-' + i);
 				

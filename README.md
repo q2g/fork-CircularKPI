@@ -10,5 +10,7 @@ EDIT 20160402: CircularKPI now supports dropping a dimension on the object to cr
 
 EDIT #2 20160402: Added opacity settings while making selections in dimension driven KPI array to highlight selected vs non-selected values. Plus optional labels for single KPIs without dimension.
 
+EDIT #3 20160409: Added an option to show decimals (up to 2 decimals in order to avoid clutter). Off by default but can be enabled from the object properties.
+
 # Example
 ![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI_animation.gif)

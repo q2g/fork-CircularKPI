@@ -23,7 +23,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-function radialProgress(parent, width, height, colors, animationTime) {
+function radialProgress(parent, width, height, colors, animationTime, showdecimals) {
 	
 	var colors = colors;
 	//console.log(colors);
@@ -141,12 +141,14 @@ function radialProgress(parent, width, height, colors, animationTime) {
                 .attr("cursor","pointer")
                 .attr("width",_width)
                 // .attr("x",(3*_fontSize/2))
-                .text(function (d) { return Math.round((_value-_minValue)/(_maxValue-_minValue)*100) + "%" })
+                .text(function (d) {return (_value-_minValue)/(_maxValue-_minValue)*100 + "%" })
                 .style("font-size",_fontSize+"px")
                 .on("click",onMouseClick);
 
+				
             path.exit().transition().duration(500).attr("x",1000).remove();
 
+			console.log(showdecimals);
 
             layout(svg);
 
@@ -175,10 +177,10 @@ function radialProgress(parent, width, height, colors, animationTime) {
 						.attrTween("d", arcTween3);
 				}
                 
-                label.datum(Math.round(ratio*100));
+                label.datum((ratio*100)); //Math.round
                 label.transition().duration(_duration)
                     .tween("text",labelTween);
-
+				//console.log(labelTween("54.32"));
             }
 
         });
@@ -196,7 +198,13 @@ function radialProgress(parent, width, height, colors, animationTime) {
 
         return function(t) {
             _currentValue = i(t);
-            this.textContent = Math.round(i(t)) + "%";
+			if(showdecimals) {
+				this.textContent = Math.round(i(t)*100)/100 + "%"; //Show decimals, up to 2
+			}
+			else {
+				this.textContent = Math.round(i(t)) + "%"; //Don't show decimals
+			}
+			console.log(_currentValue);
         }
     }
 

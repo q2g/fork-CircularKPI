@@ -56,6 +56,12 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
 									label: "Single KPI Label",
 									ref: "singlekpilabel",
 									defaultValue: ""
+								},
+								showdecimals: {
+									type: "boolean",
+									label: "Show decimal values",
+									ref: "showdecimals",
+									defaultValue: false
 								}
                             }
                         }
@@ -88,6 +94,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
 
             var colors = [layout.theme[0], layout.theme[1], layout.theme[2]];
             var animationTime = layout.animationtime;
+			var showdecimals = layout.showdecimals;
 
 
             var rows, columns;
@@ -98,7 +105,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 columns = Math.ceil(Math.sqrt(1.5 * data.length) / 1.5);
                 rows = Math.ceil(data.length / columns);
             };
-
+			console.log(data);
             var area = d3.select($("#" + id).get(0))
                 .selectAll('.area')
                 .data(data)
@@ -132,8 +139,8 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 } else {
                     width = height;
                 };
-
-                radialProgress(element, width, height, colors, animationTime)
+				console.log(value);
+                radialProgress(element, width, height, colors, animationTime, showdecimals)
                     .diameter(width)
                     .label(label)
                     .onClick(select)

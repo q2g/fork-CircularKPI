@@ -62,6 +62,12 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
 									label: "Show decimal values",
 									ref: "showdecimals",
 									defaultValue: false
+								},
+								showpercentage: {
+									type: "boolean",
+									label: "Show percent (%) symbol",
+									ref: "showpercentage",
+									defaultValue: true
 								}
                             }
                         }
@@ -95,6 +101,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
             var colors = [layout.theme[0], layout.theme[1], layout.theme[2]];
             var animationTime = layout.animationtime;
 			var showdecimals = layout.showdecimals;
+			var showpercentage = layout.showpercentage;
 
 
             var rows, columns;
@@ -105,7 +112,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 columns = Math.ceil(Math.sqrt(1.5 * data.length) / 1.5);
                 rows = Math.ceil(data.length / columns);
             };
-			console.log(data);
+			//console.log(data);
             var area = d3.select($("#" + id).get(0))
                 .selectAll('.area')
                 .data(data)
@@ -139,8 +146,8 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 } else {
                     width = height;
                 };
-				console.log(value);
-                radialProgress(element, width, height, colors, animationTime, showdecimals)
+				//console.log(value);
+                radialProgress(element, width, height, colors, animationTime, showdecimals, showpercentage)
                     .diameter(width)
                     .label(label)
                     .onClick(select)

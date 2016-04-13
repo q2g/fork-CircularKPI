@@ -23,10 +23,18 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-function radialProgress(parent, width, height, colors, animationTime, showdecimals) {
+function radialProgress(parent, width, height, colors, animationTime, showdecimals, showpercentage) {
 	
 	var colors = colors;
 	//console.log(colors);
+	
+	if(showpercentage) {
+		var percentageSymbol = "%";
+	}
+	else {
+		var percentageSymbol ="";
+	}
+	//console.log(percentageSymbol);
 	
     var _data=null,
         _duration= animationTime,
@@ -141,14 +149,14 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
                 .attr("cursor","pointer")
                 .attr("width",_width)
                 // .attr("x",(3*_fontSize/2))
-                .text(function (d) {return (_value-_minValue)/(_maxValue-_minValue)*100 + "%" })
+                .text(function (d) {return (_value-_minValue)/(_maxValue-_minValue)*100 + percentageSymbol })
                 .style("font-size",_fontSize+"px")
                 .on("click",onMouseClick);
 
 				
             path.exit().transition().duration(500).attr("x",1000).remove();
 
-			console.log(showdecimals);
+			
 
             layout(svg);
 
@@ -199,12 +207,12 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
         return function(t) {
             _currentValue = i(t);
 			if(showdecimals) {
-				this.textContent = Math.round(i(t)*100)/100 + "%"; //Show decimals, up to 2
+				this.textContent = Math.round(i(t)*100)/100 + percentageSymbol; //Show decimals, up to 2
 			}
 			else {
-				this.textContent = Math.round(i(t)) + "%"; //Don't show decimals
+				this.textContent = Math.round(i(t)) + percentageSymbol; //Don't show decimals
 			}
-			console.log(_currentValue);
+			
         }
     }
 

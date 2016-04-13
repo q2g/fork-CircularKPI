@@ -12,5 +12,7 @@ EDIT #2 20160402: Added opacity settings while making selections in dimension dr
 
 EDIT #3 20160409: Added an option to show decimals (up to 2 decimals in order to avoid clutter). Off by default but can be enabled from the object properties.
 
+EDIT #4 20160413: Added an option to hide the "%" sign in the KPI in order to show actual values. Do note that the rings only support values up to 300(%).
+
 # Example
 ![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI_animation.gif)

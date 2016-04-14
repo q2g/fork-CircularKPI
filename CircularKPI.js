@@ -8,8 +8,8 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 qDimensions: [],
                 qMeasures: [],
                 qInitialDataFetch: [{
-                    qWidth: 2,
-                    qHeight: 100
+                    qWidth: 3,
+                    qHeight: 200
                 }]
             }
         },
@@ -20,7 +20,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 dimensions: {
                     uses: "dimensions",
                     min: 0,
-                    max: 1
+                    max: 2
                 },
                 measures: {
                     uses: "measures",
@@ -39,7 +39,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                             label: "Theme",
                             ref: "theme",
                             options: chart_theme,
-                            defaultValue: 1
+                            defaultValue: ["#64b5f6", "#1976d2", "#ef6c00", "#ffd54f", "#455a64", "#96a6a6", "#dd2c00", "#00838f", "#00bfa5", "#ffa000"]
                         },
                         extras: {
                             type: "items",
@@ -94,6 +94,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
 
             var IS_SPARK_LAYOUT = this.options.layoutMode === 1;
             var HAS_DIMENSION = layout.qHyperCube.qDimensionInfo.length > 0;
+			var HAS_TWO_DIMENSION = layout.qHyperCube.qDimensionInfo.length > 1;
 
             var data = layout.qHyperCube.qDataPages[0].qMatrix;
             var label = layout.qHyperCube.qMeasureInfo[0].qFallbackTitle;
@@ -112,7 +113,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 columns = Math.ceil(Math.sqrt(1.5 * data.length) / 1.5);
                 rows = Math.ceil(data.length / columns);
             };
-			//console.log(data);
+
             var area = d3.select($("#" + id).get(0))
                 .selectAll('.area')
                 .data(data)
@@ -125,11 +126,21 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
 				.attr('selected', 'no')
                 .style('width', Math.ceil(width / columns, 10) - 5 + 'px')
                 .style('height', Math.ceil(height / rows, 10) - 5 + 'px');
-            
+			
             data.forEach(function(d, i) {
-                var value = HAS_DIMENSION ? d[1].qNum : d[0].qNum;
-                if(layout.singlekpilabel.length>0) {var label = HAS_DIMENSION ? d[0].qText : layout.singlekpilabel};
+				if(HAS_TWO_DIMENSION) {
+					var value = d[2].qNum;
+					//For a multidim chart - calculate the color to use so we loop over the # of colors in the theme.
+					var colorIter = Math.round(d[1].qElemNumber/(layout.theme.length-2) % 1 * (layout.theme.length-2));
+					colors = [layout.theme[colorIter], layout.theme[colorIter+1], layout.theme[colorIter+2]];
+				}
+				else {
+					var value = HAS_DIMENSION ? d[1].qNum : d[0].qNum;
+                }
+				if(layout.singlekpilabel.length>0) {var label = HAS_DIMENSION ? d[0].qText : layout.singlekpilabel};
 				if(layout.singlekpilabel.length==0) {var label = HAS_DIMENSION ? d[0].qText : label};
+				
+				var extraLabel = HAS_TWO_DIMENSION ? d[1].qText : "";
 
                 var element = document.getElementById(id + '_circular-kpi-tile-' + i);
 				
@@ -146,14 +157,15 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 } else {
                     width = height;
                 };
-				//console.log(value);
+
                 radialProgress(element, width, height, colors, animationTime, showdecimals, showpercentage)
                     .diameter(width)
                     .label(label)
+					.extraLabel(extraLabel)
                     .onClick(select)
                     .value(value * 100)
                     .render();
-
+					
             }.bind(this));
             
             function toggleOpacity() {

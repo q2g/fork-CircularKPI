@@ -44,6 +44,7 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
         __height = height,//300,
         _diameter = 150,
         _label="",
+		_extraLabel="",
         _fontSize=10;
 
 
@@ -113,6 +114,17 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
                     return _fontSize / 4 < 10 ? 10 + "px" : _fontSize / 4 +"px"
                 })
                 .style('text-anchor', 'middle');
+				
+            svg.append("text")
+                .attr("class", "seconddimensionlabel")
+                .attr("y",_width/4.2 + (_fontSize / 1.5))
+                .attr("x",_width/2 )
+                .text(__height > 100 ? _extraLabel : '')
+                .style("font-size", function() {
+                    return _fontSize / 4 < 10 ? 10 + "px" : _fontSize / 4 +"px"
+                })
+                .style('text-anchor', 'middle')
+				.style('font-weight', 'bold');				
 
             _arc.endAngle(_currentArc);
             enter.append("g").attr("class", "arcs");
@@ -298,6 +310,12 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
         _label = _;
         return component;
     };
+	
+    component.extraLabel = function(_) {
+        if (!arguments.length) return _extraLabel;
+        _extraLabel = _;
+        return component;
+    };	
 
     component._duration = function(_) {
         if (!arguments.length) return _duration;

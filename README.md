@@ -14,5 +14,7 @@ EDIT #3 20160409: Added an option to show decimals (up to 2 decimals in order to
 
 EDIT #4 20160413: Added an option to hide the "%" sign in the KPI in order to show actual values. Do note that the rings only support values up to 300(%).
 
+EDIT #5 20160414: Added support for a second dimension to color code groups of KPI items. See below animation for example.
+
 # Example
-![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI_animation.gif)
+![alt tag](https://raw.githubusercontent.com/johsund/CircularKPI/master/CircularKPI_animation2.gif)

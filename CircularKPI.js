@@ -1,5 +1,5 @@
 /*globals define*/
-define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.min", "./scripts/radialProgress"], function($, cssContent, chart_theme) {
+define(["jquery", "css!./scripts/style.css", "./scripts/themes" , "./scripts/radialProgress", "./scripts/d3.min"], function($, cssContent, chart_theme, radialProgress) {
     'use strict';
     $("<style>").html(cssContent).appendTo("head");
     return {
@@ -80,6 +80,7 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
         },
         paint: function($element, layout) {
 
+
             $element.empty();
 			
 			var id = "container_" + layout.qInfo.qId;
@@ -113,7 +114,6 @@ define(["jquery", "text!./scripts/style.css", "./scripts/themes", "./scripts/d3.
                 columns = Math.ceil(Math.sqrt(1.5 * data.length) / 1.5);
                 rows = Math.ceil(data.length / columns);
             };
-
             var area = d3.select($("#" + id).get(0))
                 .selectAll('.area')
                 .data(data)

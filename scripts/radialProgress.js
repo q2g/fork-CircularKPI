@@ -23,7 +23,21 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-function radialProgress(parent, width, height, colors, animationTime, showdecimals, showpercentage) {
+
+(function (root, factory) {
+	if ( typeof define === 'function' && define.amd ) {
+		define([], function () {
+			return factory(root);
+		});
+	} else if ( typeof exports === 'object' ) {
+		module.exports = factory(root);
+	} else {
+		root.myPlugin = factory(root);
+	}
+ })(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
+
+
+return function radialProgress(parent, width, height, colors, animationTime, showdecimals, showpercentage) {
 	
 	var colors = colors;
 	//console.log(colors);
@@ -332,3 +346,4 @@ function radialProgress(parent, width, height, colors, animationTime, showdecima
     return component;
 
 }
+})
